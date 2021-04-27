@@ -13,6 +13,9 @@
 #[cfg(not(any(target_arch = "x86_64", target_arch = "x86", target_arch = "aarch64")))]
 compile_error!("crate can only be used on x86, x86-64 and aarch64 architectures");
 
+#[cfg(all(target_arch = "aarch64", target_vendor = "apple"))]
+compile_error!("crate can only be used on non-apple m1 aarch64 architectures");
+
 #[link(name = "sha256", kind = "static")]
 extern "C" {
     fn sha256_compress(state: &mut [u32; 8], block: &[u8; 64]);
